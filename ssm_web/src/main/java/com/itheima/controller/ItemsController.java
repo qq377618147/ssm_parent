@@ -23,6 +23,9 @@ public class ItemsController {
     @RequestMapping("findAll")
     public List<Items> findAll() {
         List<Items> itemsList = itemsService.findAll();
+        //制造冲突
+        System.out.println("哈哈哈哈哈");
         return itemsList;
     }
+
 }
