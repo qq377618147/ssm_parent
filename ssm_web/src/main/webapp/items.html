@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/axios-0.18.0.js"></script>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <table>
+        <form action="/items/findAll" method="post" onsubmit="return false">
+            <table>
+                <tr>
+                    <td>名称</td>
+                    <td><input type="text" name="name"/></td>
+                </tr>
+                <tr>
+                    <td>价格</td>
+                    <td><input type="text" name="price"/></td>
+                </tr>
+                <tr>
+                    <td>图片</td>
+                    <td><input type="text" name="pic"/></td>
+                </tr>
+                <tr>
+                    <td>创建日期</td>
+                    <td><input type="text" name="createtime"/></td>
+                </tr>
+                <tr>
+                    <td>详情</td>
+                    <td><input type="text" name="detail"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="提交"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </table>
+    <hr>
+    <table border="1">
+        <tr>
+            <td>ID</td>
+            <td>name</td>
+            <td>price</td>
+            <td>pic</td>
+            <td>createTime</td>
+            <td>detail</td>
+        </tr>
+        <tr v-for="(item,index) in items">
+            <td v-text="item.id"></td>
+            <td v-text="item.name"></td>
+            <td v-text="item.price"></td>
+            <td v-text="item.createtime"></td>
+            <td v-text="item.detail"></td>
+        </tr>
+    </table>
+</div>
+</body>
+<script>
+    let vue = new Vue({
+        el: "#app",
+        data:{
+            items:{}
+        },
+        methods: {
+            findAll() {
+                axios.get("/items/findAll").then(value => {
+
+                        this.items = value.data;
+
+                });
+            }
+        }, created() {
+            this.findAll()
+        }
+    });
+</script>
+</html>
